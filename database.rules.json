@@ -1,0 +1,20 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "models": {
+      ".read": true,
+      ".write": "auth != null && auth.token.admin === true",
+      "$modelId": {
+        ".validate": "newData.hasChildren(['id', 'name', 'downloadUrl']) && newData.child('id').isString() && newData.child('name').isString() && newData.child('downloadUrl').isString()"
+      }
+    },
+    "voicepacks": {
+      ".read": true,
+      ".write": "auth != null && auth.token.admin === true",
+      "$voicepackId": {
+        ".validate": "newData.hasChildren(['id', 'name']) && newData.child('id').isString() && newData.child('name').isString()"
+      }
+    }
+  }
+}

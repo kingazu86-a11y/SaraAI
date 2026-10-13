@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="100%" height="100%">
+  <!-- Sara AI Official Logo Vector -->
+  <!-- Outer Hexagon & Stylized Left S -->
+  <path d="M 91 30 L 40 59 L 40 90 L 78 90 L 78 112 L 40 112 L 40 133 L 96 165 L 96 182 L 34 146 L 24 140 L 24 53 L 91 14 Z" fill="currentColor" />
+  
+  <!-- Outer Hexagon Bottom-Right Arm -->
+  <path d="M 96 182 L 158 146 L 168 140 L 168 98 L 152 98 L 152 131 L 106 158 L 106 130 L 140 110 L 152 118 L 152 102 L 106 75 L 106 90 Z" fill="currentColor" />
+
+  <!-- Center Microphone Capsule -->
+  <rect x="82" y="70" width="28" height="46" rx="14" fill="currentColor" />
+  
+  <!-- Microphone Grille Slots -->
+  <line x1="82" y1="84" x2="110" y2="84" stroke="#ffffff" stroke-width="2.5" />
+  <line x1="82" y1="94" x2="110" y2="94" stroke="#ffffff" stroke-width="2.5" />
+
+  <!-- Microphone U-Cradle & Stand -->
+  <path d="M 70 94 C 70 118 80 128 96 128 C 112 128 122 118 122 94 L 130 94 C 130 123 116 135 100 135 L 100 160 L 92 160 L 92 135 C 76 135 62 123 62 94 Z" fill="currentColor" />
+
+  <!-- Top-Right Concentric Sound Waves -->
+  <path d="M 108 52 A 44 44 0 0 1 144 88" fill="none" stroke="#9E9E9E" stroke-width="6" stroke-linecap="round" />
+  <path d="M 108 38 A 58 58 0 0 1 156 86" fill="none" stroke="#9E9E9E" stroke-width="6" stroke-linecap="round" />
+  <path d="M 108 24 A 72 72 0 0 1 168 84" fill="none" stroke="#9E9E9E" stroke-width="6" stroke-linecap="round" />
+</svg>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sara AI - Desktop Administration</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="alternate icon" type="image/png" href="../assets/icon.png">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+  <!-- Custom Frameless Titlebar -->
+  <header class="app-titlebar">
+    <div class="titlebar-brand">
+      <img src="../assets/logo.svg" alt="Sara AI Official Logo" class="titlebar-logo">
+      <span class="titlebar-title">Sara AI</span>
+      <span class="titlebar-badge">Admin Hub</span>
+    </div>
+
+    <div class="titlebar-controls">
+      <button class="window-btn" id="windowMinBtn" title="Minimize">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="window-btn" id="windowMaxBtn" title="Maximize">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+      </button>
+      <button class="window-btn close-btn" id="windowCloseBtn" title="Close">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- App Body Layout -->
+  <div class="app-body">
+    <!-- Left Navigation Sidebar -->
+    <aside class="app-sidebar">
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-view="dashboard">
+          <span class="nav-icon" id="navIconDashboard"></span>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-view="models">
+          <span class="nav-icon" id="navIconModels"></span>
+          <span>AI Models Hub</span>
+        </a>
+        <a href="#" class="nav-item" data-view="voicepacks">
+          <span class="nav-icon" id="navIconVoice"></span>
+          <span>Voice Packs</span>
+        </a>
+        <a href="#" class="nav-item" data-view="server">
+          <span class="nav-icon" id="navIconServer"></span>
+          <span>Firebase & Cloud</span>
+        </a>
+        <a href="#" class="nav-item" data-view="admin-management">
+          <span class="nav-icon" id="navIconAdminMgmt"></span>
+          <span>Admin Users</span>
+        </a>
+        <a href="#" class="nav-item" data-view="clients">
+          <span class="nav-icon" id="navIconClients"></span>
+          <span>Connected Devices</span>
+        </a>
+        <a href="#" class="nav-item" data-view="settings">
+          <span class="nav-icon" id="navIconSettings"></span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Status Footer -->
+      <div class="sidebar-footer">
+        <div class="server-pill" onclick="window.App.navigateTo('server')" style="cursor: pointer;" title="Click to view Firebase Realtime Database status">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="server-beacon" id="sidebarServerBeacon"></span>
+            <span style="font-weight: 500;" id="sidebarServerLabel">Firebase RTDB</span>
+          </div>
+          <span style="font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono);">Cloud</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Content -->
+    <main class="app-content">
+      <!-- Topbar Header -->
+      <header class="content-topbar">
+        <div class="topbar-left">
+          <div class="page-title-group">
+            <h1 class="page-title" id="pageTitle">Dashboard Overview</h1>
+            <span class="page-subtitle" id="pageSubtitle">System health, storage metrics, and active node status</span>
+          </div>
+        </div>
+
+        <div class="topbar-search">
+          <span class="search-icon" id="searchIconSpan"></span>
+          <input type="text" class="search-input" id="globalSearchInput" placeholder="Search models, capabilities, tags...">
+        </div>
+
+        <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px;">
+          <!-- Admin Auth Pill Widget -->
+          <div id="adminAuthTopbarWidget"></div>
+
+          <button class="btn btn-primary btn-sm" onclick="window.ModelsView.openAddModelModal()">
+            <span id="btnPlusIcon"></span> Add AI Model
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic View Container -->
+      <div class="viewport-container" id="viewportContainer">
+        <!-- Rendered by View Controllers -->
+      </div>
+
+      <!-- Background Active Download Floating Dock -->
+      <div class="download-dock" id="downloadDock">
+        <div class="dock-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="dockDownloadIcon" style="display: flex; align-items: center; color: var(--success);"></span>
+            <div>
+              <div class="dock-title" id="dockTitle">Downloading Model</div>
+              <div style="font-size: 11px; color: var(--text-muted);" id="dockBytes">0 MB / --</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="dock-speed" id="dockSpeed">-- MB/s</span>
+            <button class="dock-cancel-btn" id="dockCancelBtn" title="Cancel Download">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="dockProgress" style="width: 0%;"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Admin Email & Password Sign In Modal -->
+  <div class="modal-backdrop" id="adminLoginModal">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+          <span style="display: flex; color: var(--accent);">${window.Icons.get('shield', 18)}</span>
+          <h3 class="modal-title">Administrator Sign In</h3>
+        </div>
+        <button class="modal-close-btn" onclick="window.Modal.close('adminLoginModal')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="adminLoginForm" onsubmit="window.AdminAuth.handleLoginSubmit(event)">
+          <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: var(--space-md); font-size: 12px; color: #93C5FD; display: flex; align-items: flex-start; gap: 8px;">
+            <span style="flex-shrink: 0; margin-top: 1px;">ℹ️</span>
+            <div>
+              Sign in with your verified Firebase Admin credentials. Accounts must have the <code style="font-family: var(--font-mono); color: #fff; font-weight: 600;">admin: true</code> custom claim.
+            </div>
+          </div>
+
+          <!-- Error Alert Banner -->
+          <div id="adminLoginError" style="display: none; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12.5px; color: #FCA5A5; margin-bottom: var(--space-md); line-height: 1.4;">
+            <div id="adminLoginErrorMsg"></div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-md);">
+            <label class="form-label" for="adminLoginEmail">Admin Email Address</label>
+            <input type="email" class="form-input" id="adminLoginEmail" placeholder="admin@saraai.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group" style="margin-bottom: var(--space-lg);">
+            <label class="form-label" for="adminLoginPassword">Password</label>
+            <input type="password" class="form-input" id="adminLoginPassword" placeholder="••••••••••••" required autocomplete="current-password">
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: var(--space-sm);">
+            <button type="button" class="btn btn-secondary" onclick="window.Modal.close('adminLoginModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmitAdminLogin" style="min-width: 140px;">
+              <span>Sign In as Admin</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/components/icons.js"></script>
+  <script src="js/components/toast.js"></script>
+  <script src="js/components/modal.js"></script>
+  <script src="js/components/admin-auth.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/views/dashboard.js"></script>
+  <script src="js/views/models.js"></script>
+  <script src="js/views/voicepacks.js"></script>
+  <script src="js/views/server.js"></script>
+  <script src="js/views/clients.js"></script>
+  <script src="js/views/settings.js"></script>
+  <script src="js/views/admin-management.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
