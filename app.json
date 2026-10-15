@@ -1,4 +1,17 @@
 {
   "name": "SaraAI",
-  "displayName": "Sara AI"
+  "displayName": "Sara AI",
+  "expo": {
+    "name": "SaraAI",
+    "slug": "saraai",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.saraai.offline.assistant"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a9da6e1e-7530-4c62-93f7-361907d98dc6"
+      }
+    }
+  }
 }
